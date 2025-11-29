@@ -1262,8 +1262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetObjectSettings: {fileID: 11400000, guid: 4bb061ecbd4ea7b409ea4cafb032ece8, type: 2}
-  _rigidbody: {fileID: 0}
-  _collider: {fileID: 0}
+  _rigidbody: {fileID: 1117012544}
 --- !u!1001 &1126538052
 PrefabInstance:
   m_ObjectHideFlags: 0
