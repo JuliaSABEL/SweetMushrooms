@@ -18,7 +18,7 @@ public class TargetObjectController : MonoBehaviour
     {
         if (Time.time < _cooldownUntil) return;
         if (candidate == null || candidate == CurrentOwner) return;
-
+        
         SetOwner(candidate);
         _cooldownUntil = Time.time + _targetObjectSettings.captureCooldown;
     }
@@ -27,18 +27,15 @@ public class TargetObjectController : MonoBehaviour
     {
         CurrentOwner = null;
         transform.SetParent(null);
-        _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        _rigidbody.simulated = true;
     }
 
 
-    private void Awake()
-    {
-        Detach();
-    }
+    private void Awake() => Detach();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var carrier = GetComponentInParent<ICarrier>();
+        var carrier = other.GetComponentInParent<ICarrier>();
         if (carrier != null) TryCapture(carrier);
     }
     
@@ -47,7 +44,7 @@ public class TargetObjectController : MonoBehaviour
         CurrentOwner = newOwner;
         transform.SetParent(newOwner.CarryPoint, worldPositionStays: false);
         transform.localPosition = Vector3.zero;
-        _rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        _rigidbody.simulated = false;
         OnOwnerChanged?.Invoke();
     }
 }
